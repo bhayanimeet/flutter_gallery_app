@@ -1,22 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:gallery_app/controllers/imageApi_controller.dart';
-import 'package:gallery_app/models/image_model.dart';
+import 'package:gallery_app/res/global.dart';
+import 'package:gallery_app/views/screens/category_component.dart';
 import 'package:gallery_app/views/screens/editpage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:skeleton_text/skeleton_text.dart';
-import '../../res/global.dart';
 import 'package:get/get.dart';
+import '../../controllers/imageApi_controller.dart';
+import '../../models/image_model.dart';
+import 'like_component.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class ImageComponent extends StatefulWidget {
+  const ImageComponent({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<ImageComponent> createState() => _ImageComponentState();
 }
 
-class _HomePageState extends State<HomePage> {
-  TextEditingController image = TextEditingController();
+class _ImageComponentState extends State<ImageComponent> {
+  int currentIndex = 0;
+  IconData home = Icons.home;
+  IconData category = Icons.category_outlined;
+  IconData fav = Icons.favorite_border;
 
   @override
   Widget build(BuildContext context) {
@@ -36,32 +41,49 @@ class _HomePageState extends State<HomePage> {
                   style: GoogleFonts.arya(
                     fontSize: 25,
                     fontWeight: FontWeight.w600,
-                    color:
-                        (Global.isDark == true) ? Colors.white : Colors.black,
+                    color: (Global.isDark) ? Colors.white : Colors.black,
                   ),
                 ),
               );
-            } else if (snapshot.hasData) {
+            }
+            else if (snapshot.hasData) {
               ImageModel? data = snapshot.data;
               if (data != null) {
                 return CustomScrollView(
                   slivers: [
                     SliverAppBar(
-                      expandedHeight: 220,
+                      expandedHeight: 160,
                       toolbarHeight: 80,
+                      automaticallyImplyLeading: false,
                       pinned: true,
+                      backgroundColor: Colors.transparent,
                       flexibleSpace: Container(
-                        color: (Global.isDark == true)
-                            ? const Color(0xff1e1e1e)
-                            : Colors.blue.shade50,
+                        decoration: BoxDecoration(
+                          borderRadius: const BorderRadius.vertical(bottom: Radius.circular(25)),
+                          color: (Global.isDark)
+                              ? const Color(0xff1e1e1e)
+                              : Colors.blue.shade50,
+                        ),
                         child: FlexibleSpaceBar(
                           expandedTitleScale: 1,
+                          background: Align(
+                            alignment: const Alignment(0, -0.4),
+                            child: Text(
+                              "Albums",
+                              style: GoogleFonts.arya(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.w600,
+                                  color: Global.isDark
+                                      ? Colors.white
+                                      : Colors.black),
+                            ),
+                          ),
                           title: Row(
                             children: [
                               Expanded(
                                 flex: 11,
                                 child: SizedBox(
-                                  height: 70,
+                                  height: 50,
                                   width: 200,
                                   child: TextField(
                                     onSubmitted: (val) {
@@ -69,20 +91,52 @@ class _HomePageState extends State<HomePage> {
                                         Global.imageTitle = val;
                                       });
                                     },
+                                    style: GoogleFonts.arya(
+                                      color: Global.isDark
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontSize: 16,
+                                    ),
+                                    cursorColor: Global.isDark
+                                        ? Colors.white
+                                        : Colors.black,
                                     decoration: InputDecoration(
-                                      border: OutlineInputBorder(
+                                      enabledBorder: OutlineInputBorder(
                                           borderRadius:
-                                              BorderRadius.circular(40)),
+                                              BorderRadius.circular(40),
+                                          borderSide: BorderSide(
+                                              color: (Global.isDark)
+                                                  ? Colors.grey.shade300
+                                                  : Colors.black54)),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(40),
+                                        borderSide: BorderSide(
+                                          color: (Global.isDark)
+                                              ? Colors.grey.shade300
+                                              : Colors.black54,
+                                        ),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(40),
+                                          borderSide: BorderSide(
+                                              color: (Global.isDark)
+                                                  ? Colors.grey.shade300
+                                                  : Colors.black54)),
                                       hintText: 'Search...',
                                       hintStyle: GoogleFonts.arya(
-                                          color: Global.isDark == true
-                                              ? Colors.white
-                                              : Colors.black,
-                                          fontSize: 20),
-                                      prefixIcon: Icon(Icons.search,
-                                          color: Global.isDark == true
-                                              ? Colors.white
-                                              : Colors.black),
+                                        color: Global.isDark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: 15,
+                                      ),
+                                      prefixIcon: Icon(
+                                        Icons.search,
+                                        size: 20,
+                                        color: Global.isDark
+                                            ? Colors.white
+                                            : Colors.black,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -97,7 +151,7 @@ class _HomePageState extends State<HomePage> {
                                   },
                                   child: Icon(
                                     Icons.light_mode_outlined,
-                                    color: Global.isDark == true
+                                    color: Global.isDark
                                         ? Colors.white
                                         : Colors.black,
                                   ),
@@ -106,8 +160,7 @@ class _HomePageState extends State<HomePage> {
                             ],
                           ),
                           titlePadding: const EdgeInsets.only(
-                              left: 10, bottom: 10, top: 30),
-                          background: const Center(child: Text("My Application")),
+                              left: 10, bottom: 20),
                         ),
                       ),
                     ),
@@ -126,98 +179,97 @@ class _HomePageState extends State<HomePage> {
                                   style: GoogleFonts.arya(
                                     fontSize: 25,
                                     fontWeight: FontWeight.w600,
-                                    color: Global.isDark == true
+                                    color: Global.isDark
                                         ? Colors.white
                                         : Colors.black,
                                   ),
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 10),
+                            const SizedBox(height: 15),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 myContainer(image1: data.image1),
-                                const SizedBox(width: 8),
                                 myContainer(image1: data.image2),
                               ],
                             ),
-                            const SizedBox(height: 7),
+                            const SizedBox(height: 15),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 myContainer(image1: data.image3),
-                                const SizedBox(width: 8),
                                 myContainer(image1: data.image4),
                               ],
                             ),
-                            const SizedBox(height: 7),
+                            const SizedBox(height: 15),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 myContainer(image1: data.image5),
-                                const SizedBox(width: 8),
                                 myContainer(image1: data.image6),
                               ],
                             ),
-                            const SizedBox(height: 7),
+                            const SizedBox(height: 15),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 myContainer(image1: data.image7),
-                                const SizedBox(width: 8),
                                 myContainer(image1: data.image8),
                               ],
                             ),
-                            const SizedBox(height: 7),
+                            const SizedBox(height: 15),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 myContainer(image1: data.image9),
-                                const SizedBox(width: 8),
                                 myContainer(image1: data.image10),
                               ],
                             ),
-                            const SizedBox(height: 7),
+                            const SizedBox(height: 15),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 myContainer(image1: data.image11),
-                                const SizedBox(width: 8),
                                 myContainer(image1: data.image12),
                               ],
                             ),
-                            const SizedBox(height: 7),
+                            const SizedBox(height: 15),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 myContainer(image1: data.image13),
-                                const SizedBox(width: 8),
                                 myContainer(image1: data.image14),
                               ],
                             ),
-                            const SizedBox(height: 7),
+                            const SizedBox(height: 15),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 myContainer(image1: data.image15),
-                                const SizedBox(width: 8),
                                 myContainer(image1: data.image16),
                               ],
                             ),
-                            const SizedBox(height: 7),
+                            const SizedBox(height: 15),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 myContainer(image1: data.image17),
-                                const SizedBox(width: 8),
                                 myContainer(image1: data.image18),
                               ],
                             ),
-                            const SizedBox(height: 7),
+                            const SizedBox(height: 15),
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 myContainer(image1: data.image19),
-                                const SizedBox(width: 8),
                                 myContainer(image1: data.image20),
                               ],
                             ),
                             const SizedBox(height: 20),
                             LoadingAnimationWidget.discreteCircle(
-                                color: Global.isDark == true
-                                    ? Colors.white
-                                    : Colors.black,
+                                color:
+                                    Global.isDark ? Colors.white : Colors.black,
                                 size: 30),
                             const SizedBox(height: 20),
                           ],
@@ -230,13 +282,56 @@ class _HomePageState extends State<HomePage> {
             }
             return Center(
               child: LoadingAnimationWidget.discreteCircle(
-                color: (Global.isDark == true) ? Colors.white : Colors.black,
+                color: (Global.isDark) ? Colors.white : Colors.black,
                 size: 40,
               ),
             );
           },
         ),
         backgroundColor: (Global.isDark == true) ? const Color(0xff2a2a2a) : Colors.white,
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor:
+          (Global.isDark) ? const Color(0xff1e1e1e) : Colors.blue.shade50,
+          onTap: (val) {
+            setState(() {
+              currentIndex = val;
+              if (currentIndex == 0) {
+                home = Icons.home;
+                fav = Icons.favorite_border;
+                category = Icons.category_outlined;
+              } else if (currentIndex == 1) {
+                home = Icons.home_outlined;
+                fav = Icons.favorite_border;
+                category = Icons.category_sharp;
+                Get.to(
+                      () => const CategoryComponent(),
+                  duration: const Duration(seconds: 2),
+                  transition: Transition.fadeIn,
+                  curve: Curves.easeInOut,
+                );
+              } else if (currentIndex == 2) {
+                home = Icons.home_outlined;
+                fav = Icons.favorite;
+                category = Icons.category_outlined;
+                Get.to(
+                      () => const LikeComponent(),
+                  duration: const Duration(seconds: 2),
+                  transition: Transition.fadeIn,
+                  curve: Curves.easeInOut,
+                );
+              }
+            });
+          },
+          selectedItemColor: Global.isDark ? Colors.white : Colors.black,
+          unselectedItemColor: Global.isDark ? Colors.white30 : Colors.black45,
+          items: [
+            BottomNavigationBarItem(icon: Icon(home, size: 30), label: "Home"),
+            BottomNavigationBarItem(
+                icon: Icon(category, size: 30), label: "Category"),
+            BottomNavigationBarItem(icon: Icon(fav, size: 30), label: "Favorite"),
+          ],
+          currentIndex: 0,
+        ),
       ),
     );
   }
@@ -254,12 +349,15 @@ class _HomePageState extends State<HomePage> {
       },
       child: Container(
         height: 300,
-        width: MediaQuery.of(context).size.width / 2.15,
+        width: MediaQuery.of(context).size.width / 2.3,
         decoration: BoxDecoration(
-          border: Border.all(
-            width: 1,
-            color: Global.isDark == true ? Colors.grey.shade300 : Colors.black,
-          ),
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 3,
+              spreadRadius: 1,
+              color: Global.isDark ? Colors.white54 : Colors.grey.shade400,
+            ),
+          ],
           color: Colors.grey.shade200,
           borderRadius: BorderRadius.circular(20),
         ),
@@ -272,12 +370,12 @@ class _HomePageState extends State<HomePage> {
             loadingBuilder: (context, child, image) {
               if (image == null) return child;
               return SkeletonAnimation(
-                shimmerColor: Colors.grey.shade200,
+                shimmerColor: Global.isDark?Colors.black12:Colors.grey.shade200,
                 curve: Curves.easeInOut,
                 child: Container(
                   height: 300,
                   width: MediaQuery.of(context).size.width / 2.15,
-                  color: Colors.grey.shade200,
+                  color: Global.isDark?Colors.black45:Colors.grey.shade50,
                 ),
               );
             },

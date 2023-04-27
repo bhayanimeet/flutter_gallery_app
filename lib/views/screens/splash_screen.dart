@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:gallery_app/views/screens/homepage.dart';
+import 'package:gallery_app/views/screens/image_component.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -21,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(const Duration(seconds: 3), () {
       Get.off(
-        () => const HomePage(),
+        () => const ImageComponent(),
         curve: Curves.easeInOut,
         duration: const Duration(seconds: 3),
         transition: Transition.fadeIn,
@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: (Global.isDark==true)?const Color(0xff1e1e1e):Colors.white,
+      backgroundColor: (Global.isDark)?const Color(0xff1e1e1e):Colors.white,
       body: Center(
         child: Stack(
           alignment: const Alignment(0, 1.05),
@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen> {
             Text(
               "Gallery app",
               style:
-                  GoogleFonts.arya(fontSize: 35, fontWeight: FontWeight.w600,color: (Global.isDark==true)?Colors.white:Colors.black),
+                  GoogleFonts.arya(fontSize: 35, fontWeight: FontWeight.w600,color: (Global.isDark)?Colors.white:Colors.black),
             ).animate().fadeIn(
                 curve: Curves.easeInOut, duration: const Duration(seconds: 3)),
           ],

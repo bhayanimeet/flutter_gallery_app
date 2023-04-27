@@ -1,16 +1,22 @@
-# gallery_app
+Gallery App
+Simple Gallery App made with Flutter in India.
 
-A new Flutter project.
+🗒 About
+This is a simple Gallery app that display categories wise images and also give share,save and bookmark functionality.
 
-## Getting Started
+⚙️ Features
+Main features are as follows:
+Categories-wise images
+Light and Dark Theme
+Share image functionality
+Advance UI
+Save image in local storage
+bookmark your favorite images
 
-This project is a starting point for a Flutter application.
+📲 Screenshots
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+📲 Video
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Made with ❤️ in India.
+You can show some respect by starring 🌟 the repository!
