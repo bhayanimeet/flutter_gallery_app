@@ -12,6 +12,7 @@
 - Advance UI
 - Light and Dark theme
 - GetX State Management
+- Ad Integration
 - Category-wise images
 - Database management
 - Share and save images
