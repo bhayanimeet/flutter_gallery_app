@@ -18,7 +18,7 @@
 - API Calling
 
 
-<h3 align="left">🧑‍💻 Languages and Tools:</h3>
+<h3 align="left">💻 Languages and Tools:</h3>
 
 - Dart
 - Flutter
@@ -45,6 +45,12 @@ https://user-images.githubusercontent.com/121868259/234960653-dd4d97d4-565e-4e12
 <img src="https://user-images.githubusercontent.com/121868259/234959335-4a9155f7-8c63-418c-a4d7-7c4aebb1203c.jpeg" width="220px">
 <img align="left" src="https://user-images.githubusercontent.com/121868259/234959350-96b46a5b-6a36-4e8c-a86a-3b1d7927141d.jpeg" width="220px">
 <img src="https://user-images.githubusercontent.com/121868259/234959372-0b48c6d8-319a-40aa-bde6-c4713227d05d.jpeg" width="220px">
+
+
+<h3 align="left">📝 License</h3>
+
+- 👨‍💻 All of my projects are available at [Meet bhayani](https://github.com/bhayanimeet)
+- This project is [MIT](LICENSE.md) Licensed.
 
 
 
